@@ -6,9 +6,11 @@
       <button type="submit">Tambah</button>
     </form>
     <ul>
-      <li v-for="(mataKuliah, index) in mataKuliahList" :key="index">
-        <input type="checkbox" v-model="mataKuliah.selesai">
-        <span :class="{ 'coret': mataKuliah.selesai }">{{ mataKuliah.nama }}</span>
+      <li v-for="(mataKuliah, index) in mataKuliahListFiltered" :key="index">
+        <div class="checkbox-container">
+          <input type="checkbox" :id="'checkbox-' + index" v-model="mataKuliah.selesai" @click="toggleSelesai(index)">
+          <label :for="'checkbox-' + index">{{ mataKuliah.nama }}</label>
+        </div>
         <button @click="hapusMataKuliah(index)">Hapus</button>
       </li>
     </ul>
@@ -40,6 +42,9 @@ export default {
     },
     hapusMataKuliah(index) {
       this.mataKuliahList.splice(index, 1);
+    },
+    toggleSelesai(index) {
+      this.mataKuliahList[index].selesai = !this.mataKuliahList[index].selesai;
     }
   },
   computed: {
@@ -119,7 +124,7 @@ span {
 /* Style untuk tombol hapus */
 button {
   padding: 5px;
-  background-color: #f44336;
+  background-color: #2196F3;
   color: white;
   border-radius: 4px;
   border: none;
@@ -146,7 +151,7 @@ label[for="filter"] {
 
   
   #app {
-    background-color: #150a0a;
+    background-color: #ffffff;
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
@@ -246,4 +251,4 @@ label[for="filter"] {
     color: #007bff;
   }
   
-</style>
+</style> 
